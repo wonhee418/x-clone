@@ -1,7 +1,7 @@
 export async function getPostsRecomends() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/postsRecomends`, {
     next: {
-      tags: ['posts', 'recomended']
+      tags: ['posts', 'recomended'],
     }
   });
 
