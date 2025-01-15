@@ -2,13 +2,13 @@ import style from './search.module.css';
 import BackButton from "@/app/(afterLogin)/_component/BackButton";
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import Tab from "@/app/(afterLogin)/search/_component/Tab";
-import Post from "@/app/(afterLogin)/_component/Post";
+import SearchResult from './_component/SearchResult';
 
 type Props = {
   searchParams: Promise<{ q: string, f?: string, pf?: string }>;
 }
 export default async function Search({ searchParams }: Props) {
-  const { q } = await searchParams;
+  const { q,f,pf } = await searchParams; // Next 15 에서는 비동기로 변경됨.
   return (
     <main className={style.main}>
       <div className={style.searchTop}>
@@ -17,24 +17,13 @@ export default async function Search({ searchParams }: Props) {
             <BackButton/>
           </div>
           <div className={style.formZone}>
-            <SearchForm q={q} />
+            <SearchForm q={q} f={f} pf={pf}/>
           </div>
         </div>
         <Tab/>
       </div>
       <div className={style.list}>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        {/*<SearchResult searchParams={searchParams} />*/}
+        <SearchResult searchParams={{q,f,pf}}/>
       </div>
     </main>
   )

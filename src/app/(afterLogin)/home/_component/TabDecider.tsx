@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from "react";
-import { TabContext } from "./TabProvider";
+import { TabContext } from "../../_component/TabContext";
 import PostRecomends from "./PostRecomends";
 import FollowingPosts from "./FollowingPosts";
 

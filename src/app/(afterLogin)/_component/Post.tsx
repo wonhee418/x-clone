@@ -21,7 +21,7 @@ type Props = {
 export default function Post({ noImage, post }: Props) {
   const target:IPost = post;
   if(Math.random() > 0.5 && !noImage){
-    target.Images.push(
+    target?.Images.push(
       {
         imageId:1,
         link:faker.image.urlLoremFlickr()

@@ -1,14 +1,29 @@
 "use client";
 
 import style from "./rightSearchZone.module.css";
-import {usePathname} from "next/navigation";
-import React from "react";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import React, { ChangeEvent } from "react";
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
+
 
 export default function RightSearchZone() {
   const pathname = usePathname()
-  const onChangeFollow = () => {}
-  const onChangeAll = () => {}
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  const onChangeFollow = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set('pf', value);
+    router.replace(`/search?${newSearchParams.toString()}`);
+  }
+
+  const onChangeAll = () => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.delete('pf');
+    router.replace(`/search?${newSearchParams.toString()}`);
+
+  }
   if (pathname === '/explore') {
     return null;
   }
@@ -20,12 +35,12 @@ export default function RightSearchZone() {
           <div>
             <label>사용자</label>
             <div className={style.radio}>
-              <div>모든 사용자</div>
-              <input type="radio" name="pf" defaultChecked onChange={onChangeAll} />
+              <label htmlFor="pf_off">모든 사용자</label>
+              <input type="radio" name="pf" id="pf_off" defaultChecked onChange={onChangeAll} />
             </div>
             <div className={style.radio}>
-              <div>내가 팔로우하는 사람들</div>
-              <input type="radio" name="pf" value="on" onChange={onChangeFollow} />
+              <label htmlFor="pf_on">내가 팔로우하는 사람들</label>
+              <input type="radio" name="pf" id="pf_on" value="on" onChange={onChangeFollow} />
             </div>
           </div>
         </div>

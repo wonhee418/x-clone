@@ -1,7 +1,7 @@
 import { PostImage } from "./PostImage"
 import { UserType } from "./User"
 
-export type Post = {
+export interface Post {
     postId: number,
     User: UserType,
     content: string,

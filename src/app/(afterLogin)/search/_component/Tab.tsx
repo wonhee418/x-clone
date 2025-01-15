@@ -7,13 +7,18 @@ export default function Tab() {
   const [current, setCurrent] = useState('hot');
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const onClickHot = () => {
     setCurrent('hot');
-    router.replace(`/search?q=${searchParams.get('q')}`)
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.delete('f');
+    router.replace(`/search?${newSearchParams}`);
   }
   const onClickNew = () => {
     setCurrent('new');
-    router.replace(`/search?${searchParams.toString()}&f=live`)
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set('f', 'live');
+    router.replace(`/search?${newSearchParams.toString()}`);
   }
 
   return (

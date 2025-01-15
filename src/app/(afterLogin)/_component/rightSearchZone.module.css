@@ -55,6 +55,6 @@
     display: flex;
 }
 
-.radio > div {
+.radio > label {
     flex: 1;
 }
