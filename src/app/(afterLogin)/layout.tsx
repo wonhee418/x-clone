@@ -14,7 +14,6 @@ import RQProvider from "../_component/RQProvider";
 type Props = { children: ReactNode; modal: ReactNode };
 export default async function AfterLoginLayout({ children, modal }: Props) {
   const session = await auth();
-  console.log(session);
 
   return (
     <div className={style.container}>
@@ -60,8 +59,6 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
               <TrendSection />
               <div className={style.followRecommend}>
                 <h3>팔로우 추천</h3>
-                <FollowRecommend />
-                <FollowRecommend />
                 <FollowRecommend />
               </div>
             </section>

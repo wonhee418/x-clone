@@ -11,7 +11,7 @@ export default function Trend({item} : TrendProps) {
     <Link href={`/search?q=${item.title}`} className={style.container}>
       <div className={style.count}>실시간트렌드</div>
       <div className={style.title}>{item.title}</div>
-      <div className={style.count}>{item.count} posts</div>
+      <div className={style.count}>{item.count.toLocaleString()} posts</div>
     </Link>
   )
 }

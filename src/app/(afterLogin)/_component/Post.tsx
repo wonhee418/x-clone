@@ -38,7 +38,6 @@ export default function Post({ noImage, post }: Props) {
     )
   }
 
-  console.log('post',target)
 
   return (
     <PostArticle post={target}>

@@ -144,7 +144,6 @@ http.get(`${baseUrl}/api/followingPosts`, ({ request }) => {
   }),
   http.get(`${baseUrl}/api/search/:tag`, ({ request, params }) => {
     const {tag} = params;
-    console.log('tag',tag);
     return HttpResponse.json(
       [
         {
