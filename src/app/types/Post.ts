@@ -1,9 +1,9 @@
 import { PostImage } from "./PostImage"
-import { UserType } from "./User"
+import { User } from "./User"
 
 export interface Post {
     postId: number,
-    User: UserType,
+    User: User,
     content: string,
     createdAt: Date,
     Images: PostImage[],
