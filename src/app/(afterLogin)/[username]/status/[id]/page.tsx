@@ -33,9 +33,7 @@ export default async function page({ params }: Props) {
         </div>
         <SinglePost id={id} />
         <CommentForm id={id} />
-        <div>
-          <Comments id={id} />
-        </div>
+        <Comments id={id} />
       </HydrationBoundary>
     </div>
   );
