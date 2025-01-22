@@ -1,17 +1,41 @@
-"use client";
+"use client"
 
-import { useQuery } from "@tanstack/react-query";
-import { getPostsRecomends } from "../_libs/getPostsRecomends";
-import { Post as IPost } from "@/app/types/Post";
+import {InfiniteData, useInfiniteQuery} from "@tanstack/react-query";
+import {getPostsRecomends} from "@/app/(afterLogin)/home/_libs/getPostsRecomends";
 import Post from "@/app/(afterLogin)/_component/Post";
+import {Post as IPost} from "@/app/types/Post"
+import {Fragment, useEffect} from "react";
+import {useInView} from "react-intersection-observer";
 
-export default function PostRecomends() {
-  const { data } = useQuery<IPost[]>({
-    queryKey: ["posts", "recomended"],
-    queryFn: () => getPostsRecomends(),
-    staleTime: 1000 * 60,
-    gcTime: 1000 * 60 // gcTime은 staleTime보다 커야함.
+export default function PostRecommends() {
+  const {data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
+    queryKey: ['posts', 'recommends'],
+    queryFn: getPostsRecomends,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.at(-1)?.postId,
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
   });
 
-  return data?.map((post: IPost) => <Post key={post.postId} post={post} />);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0,
+  });
+  useEffect(() => {
+    if (inView) {
+      !isFetching && hasNextPage && fetchNextPage();
+    }
+  }, [inView, isFetching, hasNextPage, fetchNextPage ])
+
+  return (
+    <>
+      {data?.pages.map((page, i) => (
+        <Fragment key={i}>
+          {page.map((post) => (
+            <Post key={post.postId} post={post}/>
+          ))}
+        </Fragment>))}
+      <div ref={ref} style={{ height: 50 }} />
+    </>
+  )
 }
