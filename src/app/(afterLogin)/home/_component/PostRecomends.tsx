@@ -1,6 +1,6 @@
 "use client"
 
-import {InfiniteData, useInfiniteQuery} from "@tanstack/react-query";
+import {InfiniteData, useSuspenseInfiniteQuery} from "@tanstack/react-query";
 import {getPostsRecomends} from "@/app/(afterLogin)/home/_libs/getPostsRecomends";
 import Post from "@/app/(afterLogin)/_component/Post";
 import {Post as IPost} from "@/app/types/Post"
@@ -8,7 +8,7 @@ import {Fragment, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
 
 export default function PostRecommends() {
-  const {data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
+  const {data, hasNextPage, fetchNextPage, isFetching } = useSuspenseInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
     queryKey: ['posts', 'recommends'],
     queryFn: getPostsRecomends,
     initialPageParam: 0,

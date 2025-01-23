@@ -16,6 +16,8 @@ function generateDate() {
   });
 }
 
+const delay = (time:number) =>{ return new Promise((resolve)=>{setTimeout(resolve,time)})}
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const handlers = [
   http.post(`${baseUrl}/api/login`, () => {
@@ -46,6 +48,9 @@ export const handlers = [
     });
   }),
   http.get(`${baseUrl}/api/postsRecomends?cursor=0`, async ({ request }) => {
+    
+    await delay(3000);
+
     const url = new URL(request.url)
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
     return HttpResponse.json([
@@ -99,7 +104,10 @@ export const handlers = [
     ]
   )
 }),
-http.get(`${baseUrl}/api/followingPosts?cursor=0`, ({ request }) => {
+http.get(`${baseUrl}/api/followingPosts?cursor=0`, async ({ request }) => {
+
+  await delay(3000);
+
   const url = new URL(request.url);
   const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
   return HttpResponse.json(

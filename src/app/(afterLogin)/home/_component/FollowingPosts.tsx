@@ -4,6 +4,7 @@ import {
   InfiniteData,
   useInfiniteQuery,
   useQuery,
+  useSuspenseInfiniteQuery,
 } from "@tanstack/react-query";
 import { Post as IPost } from "@/app/types/Post";
 import Post from "@/app/(afterLogin)/_component/Post";
@@ -12,7 +13,7 @@ import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 export default function FollowingPosts() {
-  const { data, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery<
+  const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<
     IPost[],
     Object,
     InfiniteData<IPost[]>,
